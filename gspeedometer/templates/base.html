@@ -1,0 +1,69 @@
+{% spaceless %}
+{# Base template for the velodrome server. #}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Mobiperf - Measuring your mobile performance</title>
+<link rel="stylesheet" type="text/css" href="//www.google.com/css/gcs.css"/>
+<link rel="stylesheet" type="text/css" href="/static/kennedy.css"/>
+<link rel="stylesheet" type="text/css" href="/static/speedometer.css"/>
+
+{% block extra_meta_link %}{% endblock %}
+</head>
+<body onunload="GUnload()">
+{# Google Feedback API #}
+<script type="text/javascript">
+(function() { // Protect global namespace
+  var prefix = ('https:' == document.location.protocol) ?
+ 'https://ssl' : 'http://www';
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = prefix + '.gstatic.com/feedback/api.js';
+  document.body.appendChild(script);
+})();
+</script>
+
+  <div id="kd-googlebar" style="margin-bottom:44px">
+  <div id="kd-appswitcher">
+  <a href="/"><span class="logo"><img src="/static/logo.png" height=70></span></a>
+  </div>
+  <div id="kd-search">
+  <a href="/"><span class="productname">Mobiperf</span></a>
+  <div class="linkbox">
+  <span class="link">Hi, {{ user }}</span>
+  <span class="link"><a href="{{logout_link}}">Logout</a></span>
+  <span class="link"><a href="help">Help</a></span>
+  <span class="link" id="buildinfo">Version __BUILDVERSION__</span>
+  </div>
+  </div>
+  </div>
+
+  <div id="applicationContainer">
+    <blockquote>
+    <br><b>Mobiperf</b> is an Android app for collecting mobile
+    network measurements in the wild.
+    For more information, click
+    <a href="about">this link</a>.
+    You can install the Mobiperf app on your Android device using
+    Google Play.
+   </blockquote>
+
+  <div id="main-content">
+    {% if error %}
+      <div class="error">
+        An error occurred: {{error}}
+      </div>
+    {% endif %}
+    {% if message %}
+      <div class="message">
+      {{message}}
+      </div>
+    {% endif %}
+
+    {% block body %}
+    {% endblock %}
+  </div>
+</body>
+</html>
+{% endspaceless %}
